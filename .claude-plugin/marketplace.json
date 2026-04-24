@@ -1,0 +1,12 @@
+{
+  "name": "claude-bookmarks",
+  "owner": {
+    "name": "Larry Hudson"
+  },
+  "plugins": [
+    {
+      "name": "bookmarks",
+      "source": "./"
+    }
+  ]
+}

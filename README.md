@@ -14,6 +14,18 @@ A `UserPromptSubmit` hook intercepts the message and blocks it (`decision: "bloc
 
 Later, run `/bookmarks:list-bookmarks` and the assistant will pull up every bookmark you've ever made across every project — with file paths and line numbers so it can Read surrounding context if you ask "what was I working on when I wrote bookmark #3?".
 
+## Requirements
+
+- [`jq`](https://stedolan.github.io/jq/) — used by the hook to parse prompts
+- [`rg`](https://github.com/BurntSushi/ripgrep) — used by `list-bookmarks` to scan transcripts
+
+```bash
+brew install jq ripgrep        # macOS
+apt install jq ripgrep         # Debian/Ubuntu
+```
+
+If either is missing, the plugin fails gracefully: the hook passes bookmark prompts through to the assistant (with a warning), and `list-bookmarks` prints an install hint.
+
 ## Install
 
 ```

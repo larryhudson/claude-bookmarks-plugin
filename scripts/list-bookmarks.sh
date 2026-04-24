@@ -8,6 +8,25 @@
 # Output: TSV columns: line_number \t timestamp \t file_path \t content
 set -euo pipefail
 
+missing=()
+for cmd in rg jq; do
+  command -v "$cmd" >/dev/null 2>&1 || missing+=("$cmd")
+done
+if [ ${#missing[@]} -gt 0 ]; then
+  # Map binary name -> package name (rg lives in the ripgrep package).
+  pkgs=()
+  for cmd in "${missing[@]}"; do
+    case "$cmd" in
+      rg) pkgs+=("ripgrep") ;;
+      *)  pkgs+=("$cmd") ;;
+    esac
+  done
+  echo "claude-bookmarks: missing required command(s): ${missing[*]}" >&2
+  echo "Install with: brew install ${pkgs[*]}  (macOS)" >&2
+  echo "          or: apt install ${pkgs[*]}   (Debian/Ubuntu)" >&2
+  exit 127
+fi
+
 PROJECTS="${CLAUDE_PROJECTS_DIR:-$HOME/.claude/projects}"
 
 # Filter on the sentinel marker emitted by our hook — robust to Claude Code

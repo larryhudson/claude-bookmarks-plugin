@@ -6,6 +6,13 @@
 
 set -euo pipefail
 
+if ! command -v jq >/dev/null 2>&1; then
+  # Emit a system message so the user sees why bookmarks aren't working,
+  # but don't block the prompt — fall through and let it reach the assistant.
+  printf '{"systemMessage":"claude-bookmarks: jq not installed — bookmark prompt passed through to assistant. Install jq (brew install jq) to enable bookmarking."}\n'
+  exit 0
+fi
+
 jq -c '
   if (.prompt | test("^\\s*/bookmark(s:bookmark)?(\\s|$)"))
   then {

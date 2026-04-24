@@ -1,7 +1,7 @@
 {
   "name": "bookmarks",
   "description": "Drop bookmarks into the session transcript without consuming assistant context. Prefix a message with 'bm:' to bookmark it.",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "hooks": {
     "UserPromptSubmit": [
       {

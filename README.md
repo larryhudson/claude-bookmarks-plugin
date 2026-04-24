@@ -61,8 +61,8 @@ Or ask the assistant in plain English: "list my bookmarks" / "show me bookmarks 
 
 - **`hooks/bookmark.sh`** — fires on `UserPromptSubmit`. If the prompt starts with `/bookmark` (or the namespaced `/bookmarks:bookmark`), returns `decision: "block"` with a sentinel marker `[bookmark-plugin:v1]` in the reason. The assistant never sees the prompt.
 - **`skills/bookmark/`** — an empty skill that exists only to make `/bookmarks:bookmark` appear in the slash-command picker. Its content is never loaded because the hook fires first.
-- **`scripts/list-bookmarks.sh`** — scans every `~/.claude/projects/*/*.jsonl` with `rg --json` for the sentinel marker, extracts the original prompt, and emits one TSV row per bookmark.
-- **`skills/list-bookmarks/`** — the skill the assistant invokes when you ask for your bookmarks. It just runs the script.
+- **`skills/list-bookmarks/list-bookmarks.sh`** — scans every `~/.claude/projects/*/*.jsonl` with `rg --json` for the sentinel marker, extracts the original prompt, and emits one TSV row per bookmark.
+- **`skills/list-bookmarks/SKILL.md`** — the skill the assistant invokes when you ask for your bookmarks. It just runs the script via `${CLAUDE_SKILL_DIR}`.
 
 ## Dev
 

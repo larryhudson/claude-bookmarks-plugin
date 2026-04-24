@@ -9,16 +9,13 @@ Bookmarks are stored as `queue-operation` / `enqueue` entries inside session tra
 
 ## How to list them
 
-Run the bundled script — it scans every jsonl across every project using ripgrep and returns one row per bookmark.
-
-The script lives two directories up from this skill, at `../../scripts/list-bookmarks.sh` relative to the skill's base directory. The base directory is given to you in the skill invocation header (something like `/Users/<you>/.claude/plugins/cache/claude-bookmarks/bookmarks/<version>/skills/list-bookmarks`). Run it with its absolute path:
+Run the bundled script via the Bash tool. It scans every jsonl across every project with ripgrep and returns one row per bookmark:
 
 ```bash
-# Replace <SKILL_BASE> with the base directory from the skill header above.
-"<SKILL_BASE>/../../scripts/list-bookmarks.sh"
+"${CLAUDE_SKILL_DIR}/list-bookmarks.sh"
 ```
 
-Do NOT use `$CLAUDE_PLUGIN_ROOT` — that env var is only set inside hook processes, not in the Bash tool you invoke from this skill.
+`CLAUDE_SKILL_DIR` is set by Claude Code to the directory containing this SKILL.md.
 
 Output is TSV with columns: `line_number`, `timestamp`, `file_path`, `content`, sorted by timestamp ascending.
 
